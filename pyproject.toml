@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bmfm_mammal_inference"
+version = "0.1.0"
+description = "mammal"
+readme = "README.md"
+requires-python = ">=3.10,<3.11"
+authors = [
+    {name = "Brian Duenas", email = "Brian.Duenas@ibm.com"},
+    {name = "Dean Elzinga", email = "dean.elzinga@ibm.com"}
+]
+license = { text = "MIT" }
+dependencies = [
+    "torch==2.4.1",
+    "torchvision==0.19.1",
+    "torchaudio==2.4.1",
+    "openad-service-utils @ git+https://github.com/acceleratedscience/openad_service_utils.git@gpu_cache_flag",
+    "mammal @ git+ssh://git@github.com:BiomedSciAI/biomed-multi-alignment.git@6efb52c",
+    "PyTDC",  # cannot specify version or error. used (0.1.1)
+    "scikit-learn==1.5.1",
+]
+
+[tool.ruff]
+fix = true
+line-length = 120
+target-version = "py310"
+show-fixes = true
+
+[tool.ruff.lint]
+ignore = [
+    "E722", # Do not use bare `except`
+    "F401", # imported but unused
+    "E402", # gt4sd top level submodule
+]
