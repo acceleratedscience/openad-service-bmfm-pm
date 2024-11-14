@@ -78,3 +78,9 @@ to s3://ad-prod-biomed :
 ```sh
 aws s3 cp params.json s3://ad-prod-biomed/molecules/mammal/dti/v0/
 ```
+
+To clear local dti, sol caches before running:
+```sh
+rm -rf ~/.openad_models/properties/molecules/mammal/dti/v0/
+rm -rf ~/.openad_models/properties/molecules/mammal/sol/v0/
+```
