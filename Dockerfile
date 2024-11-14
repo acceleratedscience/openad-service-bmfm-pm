@@ -7,9 +7,8 @@ ENV PYTHONUNBUFFERED=1 \
     HF_HOME="/tmp/.cache/huggingface" \
     MPLCONFIGDIR="/tmp/.config/matplotlib" \
     LOGGING_CONFIG_PATH="/tmp/app.log" \
-    gt4sd_local_cache_path="/tmp/.openad_models" \
-    gt4sd_s3_bucket_properties="ad-prod-biomed"
-
+    gt4sd_local_cache_path="/tmp/.openad_models" 
+   
 # Install dependencies and Python, then clean up in a single RUN command
 RUN dnf update -y && \
     dnf install -y gcc openssl-devel bzip2-devel libffi-devel zlib-devel wget make \
