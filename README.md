@@ -60,3 +60,21 @@ This sol input:
 	}
 ]
 ```
+
+`params.json` is required for dti to work properly, and must be copied into
+the same bucket (eventually local directory) as the dti model artifacts
+downloaded from https://huggingface.co/ibm/biomed.omics.bl.sm.ma-ted-458m.dti_bindingdb_pkd :
+
+```json
+{
+    "norm_y_mean": 5.79384684128215,
+    "norm_y_std": 1.33808027428196,
+}
+```
+
+It is currently (and must be) uploaded into place by an admin with write access
+to s3://ad-prod-biomed :
+
+```sh
+aws s3 cp params.json s3://ad-prod-biomed/molecules/mammal/dti/v0/
+```
