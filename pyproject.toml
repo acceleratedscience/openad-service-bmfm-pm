@@ -10,7 +10,8 @@ readme = "README.md"
 requires-python = ">=3.10,<3.11"
 authors = [
     {name = "Brian Duenas", email = "Brian.Duenas@ibm.com"},
-    {name = "Dean Elzinga", email = "dean.elzinga@ibm.com"}
+    {name = "Dean Elzinga", email = "dean.elzinga@ibm.com"},
+    {name = "Phil Downey", email = "phil.downey1@ibm.com"}
 ]
 license = { text = "MIT" }
 dependencies = [
