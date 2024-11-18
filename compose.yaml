@@ -1,8 +1,8 @@
 services:
   openad_mammal_properties:
-    image: quay.io/ibmdpdev/mammal_proerties:latest
-    container_name: openad_mammal_properties
-    hostname: openad_mammal_properties
+    image: quay.io/ibmdpdev/bmfm_mammal_properties:latest
+    container_name: bmfm_mammal_properties
+    hostname: bmfm_mammal_properties
     ports:
       - "8080:8080"
     volumes:
