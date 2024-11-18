@@ -1,6 +1,7 @@
 services:
   openad_mammal_properties:
-    image: quay.io/ibmdpdev/bmfm_mammal_properties:latest
+    #image: quay.io/ibmdpdev/bmfm_mammal_properties:latest
+    image: testm:latest
     container_name: bmfm_mammal_properties
     hostname: bmfm_mammal_properties
     ports:

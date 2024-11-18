@@ -1,5 +1,6 @@
 # Use NVIDIA's CUDA 11.8 base image with UBI 8 (Red Hat Universal Base Image)
-FROM docker.io/nvidia/cuda:11.8.0-runtime-ubi8
+#FROM docker.io/nvidia/cuda:11.8.0-runtime-ubi8
+FROM docker.io/nvidia/cuda:12.6.2-runtime-ubi9
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
