@@ -1,3 +1,14 @@
+"""
+Wrapped dti and sol protein models from biomed multi-alignment, updates
+to use open-source versions of biomed model code, as well as publicly
+readable s3 bucket, s3://ad-prod-biomed
+
+This is intented to be containerized.
+
+Run in local environment:
+  $ . env.sh && python implementation.py
+
+"""
 import os
 from typing import Any, List, Optional
 import json
@@ -11,7 +22,6 @@ from openad_service_utils import (
     DomainSubmodule,
     PredictorTypes,
     SimplePredictor,
-    PropertyInfo,
 )
 from pydantic.v1 import Field, BaseModel
 
@@ -55,7 +65,8 @@ class MammalProteinSolubility(SimplePredictor):
         # Same with nn_model as with tokenizer_op:
         self.nn_model = Mammal.from_pretrained(
             pretrained_model_name_or_path=os.path.join(
-                finetune_output_dir, "best_epoch.ckpt"
+                finetune_output_dir,
+        
             )
         )
         self.nn_model.eval()
@@ -118,7 +129,7 @@ class Mammal_dti(SimplePredictor):
     # Target Smile definition of molecule being tested
     drug_smiles: str = Field(
         default="CC(=O)NCCC1=CNc2c1cc(OC)cc2",
-        description="SMILES string definition of a drug, SMILES mst be enclosed in single quotes",
+        description="SMILES string definition of a drug, SMILES must be enclosed in single quotes",
         example="'CC(=O)NCCC1=CNc2c1cc(OC)cc2'",
     )
 
@@ -143,15 +154,19 @@ class Mammal_dti(SimplePredictor):
 
         # load tokenizer
         # Change tokenizer_op variable to self.tokenizer_op property:
+        print(f'ModularTokenizerOp.from_pretrained({os.path.join(finetune_output_dir, "tokenizer")})')
         self.tokenizer_op = ModularTokenizerOp.from_pretrained(
             os.path.join(finetune_output_dir, "tokenizer")
         )
 
         # Load model
         # Same with nn_model as with tokenizer_op:
+        # self.nn_model = Mammal.from_pretrained(finetune_output_dir)
         self.nn_model = Mammal.from_pretrained(
             pretrained_model_name_or_path=os.path.join(
-                finetune_output_dir, "best_epoch.ckpt"
+                finetune_output_dir,
+                # "best_epoch.ckpt"
+                # 'model.safetensors'
             )
         )
         self.nn_model.eval()
@@ -168,7 +183,7 @@ class Mammal_dti(SimplePredictor):
             return "Error Model Normalised Parameters Not present in model directory"
         else:
             print(
-                "paramters loaded for "
+                "parameters loaded for "
                 + self.get_model_location()
                 + "/best_epoch.ckpt"
                 + " are: "

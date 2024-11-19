@@ -1,5 +1,6 @@
 # Use NVIDIA's CUDA 11.8 base image with UBI 8 (Red Hat Universal Base Image)
-FROM nvidia/cuda:11.8.0-runtime-ubi8
+#FROM docker.io/nvidia/cuda:11.8.0-runtime-ubi8
+FROM docker.io/nvidia/cuda:12.6.2-runtime-ubi9
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
@@ -7,9 +8,8 @@ ENV PYTHONUNBUFFERED=1 \
     HF_HOME="/tmp/.cache/huggingface" \
     MPLCONFIGDIR="/tmp/.config/matplotlib" \
     LOGGING_CONFIG_PATH="/tmp/app.log" \
-    gt4sd_local_cache_path="/tmp/.openad_models" \
-    gt4sd_s3_bucket_algorithms="s3://ad-prod-biomed"
-
+    gt4sd_local_cache_path="/tmp/.openad_models" 
+   
 # Install dependencies and Python, then clean up in a single RUN command
 RUN dnf update -y && \
     dnf install -y gcc openssl-devel bzip2-devel libffi-devel zlib-devel wget make \

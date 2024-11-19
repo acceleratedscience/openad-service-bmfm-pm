@@ -1,0 +1,27 @@
+services:
+  openad_mammal_properties:
+    #image: quay.io/ibmdpdev/bmfm_mammal_properties:latest
+    image: testm:latest
+    container_name: bmfm_mammal_properties
+    hostname: bmfm_mammal_properties
+    ports:
+      - "8080:8080"
+    volumes:
+      - ${HOME}/.openad_models:/tmp/.openad_models:Z
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    environment: 
+      - GT4SD_S3_HOST=s3.us-east-1.amazonaws.com
+      - GT4SD_S3_ACCESS_KEY=
+      - GT4SD_S3_SECRET_KEY=
+      - GT4SD_S3_HOST_HUB=s3.us-east-1.amazonaws.com
+      - GT4SD_S3_ACCESS_KEY_HUB=
+      - GT4SD_S3_SECRET_KEY_HUB=
+      - gt4sd_s3_bucket_algorithms=ad-prod-biomed
+      - gt4sd_s3_bucket_properties=ad-prod-biomed
+      - gt4sd_s3_bucket_hub_algorithms=ad-prod-biomed
+      - gt4sd_s3_bucket_hub_properties=ad-prod-biomed
+      - ENABLE_CACHE_RESULTS=True
