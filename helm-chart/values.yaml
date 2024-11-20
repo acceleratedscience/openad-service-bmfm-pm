@@ -5,7 +5,7 @@
 replicaCount: 1
 
 buildConfig:
-  name: my-app-build
+  name: mammal-build
   gitUri: "https://github.com/acceleratedscience/bmfm_mammal_inference.git"
   gitRef: "main"
 
@@ -79,8 +79,8 @@ resources:
     cpu: 12000m
     memory: 15Gi
   requests:
-    cpu: 6000m
-    memory: 10Gi
+    cpu: 1000m
+    memory: 3Gi
 
 livenessProbe:
   httpGet:
@@ -126,8 +126,9 @@ volumeMounts:
 # init container config to download s3 resources
 aws:
   image: "amazon/aws-cli"
-  args: # command to run in the init container. # download s3 resources from the public bucket ahead of time
-    - "aws s3 sync s3://ad-prod-biomed/molecules/mammal /data/.openad_models/properties/molecules/mammal"
+  args: # command to run in the init container. # download s3 resources from the public bucket ahead of time.
+    # --no-sign-request: sign in anonymously to public bucket
+    - "aws s3 sync s3://ad-prod-biomed/molecules/mammal /data/.openad_models/properties/molecules/mammal --no-sign-request"
   region: "us-east-1"
 
 nodeSelector: {}
