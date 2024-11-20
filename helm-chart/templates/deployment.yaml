@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "bmfm-mammal-inference-chart.fullname" . }}
+  labels:
+    {{- include "bmfm-mammal-inference-chart.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "bmfm-mammal-inference-chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "bmfm-mammal-inference-chart.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      serviceAccountName: {{ include "bmfm-mammal-inference-chart.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: init-s3-sync
+          image: {{ .Values.aws.image | quote }}
+          command: ["/bin/sh", "-c"]
+          args:
+            {{- range .Values.aws.args }}
+            - {{ . | quote }}
+            {{- end }}
+          # envFrom:
+          # - secretRef:
+          #     name: {{ .Values.aws.credentials | quote }}
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: {{ .Values.aws.region | quote }}
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          # image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          env:
+            - name: HF_HOME
+              value: {{ .Values.env.HF_HOME | quote }}
+            - name: MPLCONFIGDIR
+              value: {{ .Values.env.MPLCONFIGDIR | quote }}
+            - name: LOGGING_CONFIG_PATH
+              value: {{ .Values.env.LOGGING_CONFIG_PATH | quote }}
+            - name: gt4sd_local_cache_path
+              value: {{ .Values.env.gt4sd_local_cache_path | quote }}
+            - name: ENABLE_CACHE_RESULTS
+              value: {{ .Values.env.ENABLE_CACHE_RESULTS | quote }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
