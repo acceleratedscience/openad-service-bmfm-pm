@@ -1,5 +1,12 @@
 # BMFM MAMMAL Inference for Proteins
 
+About:
+This inference Open Source Repository us based on the Bio-med Multialignment Foundation Model and provides examples of a number of Property Generation endpoints.
+More Information on the model is available here:
+https://github.com/BiomedSciAI/biomed-multi-alignment
+
+The Properties it supports are 
+ [ BACE, BBBP, CLINTOX, ESOL, FREESOLV, HIV, LIPOPHILICITY, MUV, QM7, SIDER, TOX21, TOXCAST ]
 ## Deployment Options
 
 
