@@ -6,7 +6,8 @@ More Information on the model is available here:
 https://github.com/BiomedSciAI/biomed-multi-alignment
 
 The Properties it supports are 
- [ BACE, BBBP, CLINTOX, ESOL, FREESOLV, HIV, LIPOPHILICITY, MUV, QM7, SIDER, TOX21, TOXCAST ]
+Solubility and drug target interaction for Proteins.
+
 ## Deployment Options
 
 
