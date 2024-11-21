@@ -28,6 +28,10 @@ you will now have to wait until the service is available use `sky status` to see
 ### Deploying on podman / docker 
 run on the command line `mkdir -p ~/.openad_models`
 
+***Note:*** <br>
+Initially downloading models may take some time, this will be prompted by your first request. To pre-load models you can run the following <br>
+`mkdir -p ~/.openad_models/properties/molecules && aws s3 sync s3://ad-prod-biomed/molecules/mammal/ /tmp/.openad_models/properties/molecules/mammal --no-sign-request --exact-timestamps`
+
 then using Podman or Docker run the following in the same directory as the compose.yaml file:
 step 1:
 `compose create`
@@ -42,6 +46,10 @@ In openad run the following command
 ### Deploying in venv
 
 to deploy simply run `pip install .` the run `python ./implementation.py`
+
+***Note:*** <br>
+Initially downloading models may take some time, this will be prompted by your first request. To pre-load models you can run the following <br>
+`mkdir -p ~/.openad_models/properties/molecules && aws s3 sync s3://ad-prod-biomed/molecules/mammal/ /tmp/.openad_models/properties/molecules/mammal --no-sign-request --exact-timestamps`
 
 
 In openad run the following command once the container is up and running
