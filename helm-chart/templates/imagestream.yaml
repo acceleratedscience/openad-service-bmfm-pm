@@ -2,3 +2,11 @@ apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
   name: {{ .Values.image.repository }}
+spec:
+  tags:
+    - name: "{{ .Values.image.tag }}"
+      from: 
+        kind: ImageStreamTag
+        name: "{{ .Values.image.repository }}:{{ .Values.image.tag}}"
+      imagePolicy:
+        scheduledPolicy: false

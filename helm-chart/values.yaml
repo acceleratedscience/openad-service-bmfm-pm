@@ -12,7 +12,7 @@ buildConfig:
 image:
   repository: bmfm-mammal-inference
   tag: "latest"
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 
 env:
   HF_HOME: "/tmp/.cache/huggingface"  # Set the new variable
