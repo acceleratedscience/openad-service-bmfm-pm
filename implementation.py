@@ -9,6 +9,7 @@ Run in local environment:
   $ . env.sh && python implementation.py
 
 """
+
 import os
 from typing import Any, List, Optional
 import json
@@ -57,16 +58,13 @@ class MammalProteinSolubility(SimplePredictor):
 
         # load tokenizer
         # Change tokenizer_op variable to self.tokenizer_op property:
-        self.tokenizer_op = ModularTokenizerOp.from_pretrained(
-            os.path.join(finetune_output_dir, "tokenizer")
-        )
+        self.tokenizer_op = ModularTokenizerOp.from_pretrained(os.path.join(finetune_output_dir, "tokenizer"))
 
         # Load model
         # Same with nn_model as with tokenizer_op:
         self.nn_model = Mammal.from_pretrained(
             pretrained_model_name_or_path=os.path.join(
                 finetune_output_dir,
-        
             )
         )
         self.nn_model.eval()
@@ -82,9 +80,7 @@ class MammalProteinSolubility(SimplePredictor):
         print(" predicting solubility for " + str(sample))
         # converting to batch
         batch_dict = CollateDefault()([sample_dict])
-        batch_dict["forward_mode"] = (
-            "generate"  # forward pass in generation mode instead of teacher forcing
-        )
+        batch_dict["forward_mode"] = "generate"  # forward pass in generation mode instead of teacher forcing
         # arguments for transformers.generation.utils.GenerationMixin.generate()
         batch_dict["generate_kwargs"] = {
             "output_scores": True,
@@ -126,15 +122,13 @@ class Mammal_dti(SimplePredictor):
     algorithm_application: str = "dti"
     algorithm_version: str = "v0"
     property_type: PredictorTypes = PredictorTypes.PROTEIN
-    # Target Smile definition of molecule being tested
+
+    # Target Smile definition of molecule being tested and used in OpenAD help
     drug_smiles: str = Field(
         default="CC(=O)NCCC1=CNc2c1cc(OC)cc2",
         description="SMILES string definition of a drug, SMILES must be enclosed in single quotes",
         example="'CC(=O)NCCC1=CNc2c1cc(OC)cc2'",
     )
-
-    # norm_y_mean: float = Field(default=0.1, description="", example='0.1')
-    # norm_y_std: float = Field(default=0.1, description="", example='0.1')
 
     def get_settings(self) -> dict:
         # get the norm _y settings that checkpoint was trained on
@@ -155,9 +149,7 @@ class Mammal_dti(SimplePredictor):
         # load tokenizer
         # Change tokenizer_op variable to self.tokenizer_op property:
         print(f'ModularTokenizerOp.from_pretrained({os.path.join(finetune_output_dir, "tokenizer")})')
-        self.tokenizer_op = ModularTokenizerOp.from_pretrained(
-            os.path.join(finetune_output_dir, "tokenizer")
-        )
+        self.tokenizer_op = ModularTokenizerOp.from_pretrained(os.path.join(finetune_output_dir, "tokenizer"))
 
         # Load model
         # Same with nn_model as with tokenizer_op:
@@ -183,11 +175,7 @@ class Mammal_dti(SimplePredictor):
             return "Error Model Normalised Parameters Not present in model directory"
         else:
             print(
-                "parameters loaded for "
-                + self.get_model_location()
-                + "/best_epoch.ckpt"
-                + " are: "
-                + str(parameters)
+                "parameters loaded for " + self.get_model_location() + "/best_epoch.ckpt" + " are: " + str(parameters)
             )
 
         sample_dict = {"target_seq": sample, "drug_seq": self.drug_smiles}
@@ -210,11 +198,7 @@ class Mammal_dti(SimplePredictor):
             norm_y_mean=parameters["norm_y_mean"],
             norm_y_std=parameters["norm_y_std"],
         )
-        ans = {
-            "model.out.dti_bindingdb_kd": float(
-                batch_dict["model.out.dti_bindingdb_kd"][0]
-            )
-        }
+        ans = {"model.out.dti_bindingdb_kd": float(batch_dict["model.out.dti_bindingdb_kd"][0])}
 
         # print prediction
         print("result: " + str(ans))
