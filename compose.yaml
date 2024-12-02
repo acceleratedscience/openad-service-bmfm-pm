@@ -7,7 +7,8 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ${HOME}/.openad_models:/tmp/.openad_models:Z
+      #- ${HOME}/.openad_models:/tmp/.openad_models:Z
+      - ${HOME}/tmp:/tmp/.openad_models:Z
     deploy:
       resources:
         reservations:
@@ -25,3 +26,4 @@ services:
       - gt4sd_s3_bucket_hub_algorithms=ad-prod-biomed
       - gt4sd_s3_bucket_hub_properties=ad-prod-biomed
       - ENABLE_CACHE_RESULTS=True
+      - ASYNC_ALLOW=True
