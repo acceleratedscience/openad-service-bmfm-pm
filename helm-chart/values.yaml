@@ -20,6 +20,7 @@ env:
   LOGGING_CONFIG_PATH: "/tmp/app.log"  # If you want to set a logging path
   gt4sd_local_cache_path: "/data/.openad_models"  # New variable for OpenAD models
   ENABLE_CACHE_RESULTS: "True"  # enable cache for inference results
+  ASYNC_ALLOW: "False" # Need shared file system for scaled deployment
 
 
 nameOverride: "bmfm-mammal-inference"
