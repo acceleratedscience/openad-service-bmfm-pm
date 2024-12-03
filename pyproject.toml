@@ -18,7 +18,7 @@ dependencies = [
     "torch==2.4.1",
     "torchvision==0.19.1",
     "torchaudio==2.4.1",
-    "openad-service-utils @ git+https://github.com/acceleratedscience/openad_service_utils.git@async",
+    "openad-service-utils @ git+https://github.com/acceleratedscience/openad_service_utils.git@0.3.0",
     "biomed-multi-alignment @ git+https://github.com/BiomedSciAI/biomed-multi-alignment.git",    
     # "mammal @ git@github.com/BiomedSciAI/biomed-multi-alignment.git@6efb52c",
     "PyTDC",  # cannot specify version or error. used (0.1.1)
