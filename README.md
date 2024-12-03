@@ -117,7 +117,7 @@ Support for skypilot on AWS is available. you must have a valid aws account setu
 ### Step 2: 
 `model service up mammal` <br>
 
-to stop the service run `model service down mammal` in openad.
+To stop the service run `model service down mammal` in openad.
 
 ***Note*** you will now have to wait until the service is available use `sky status` to see if the service is up and provisioned
 

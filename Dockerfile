@@ -32,11 +32,13 @@ WORKDIR /workspace
 # Copy necessary files
 COPY pyproject.toml ./
 
+COPY implementation.py ./
+
 # Install dependencies. 
 RUN --mount=type=cache,target=/tmp/pip_cache \
     pip3 install --no-cache-dir .
 
-COPY implementation.py ./
+
 
 # Expose the port your application runs on
 EXPOSE 8080

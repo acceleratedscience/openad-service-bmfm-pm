@@ -1,14 +1,12 @@
 services:
   openad_mammal_properties:
     image: quay.io/ibmdpdev/bmfm_mammal_properties:latest
-    #image: testm:latest
     container_name: bmfm_mammal_properties
     hostname: bmfm_mammal_properties
     ports:
       - "8080:8080"
     volumes:
-      #- ${HOME}/.openad_models:/tmp/.openad_models:Z
-      - ${HOME}/tmp:/tmp/.openad_models:Z
+      - ${HOME}/.openad_models:/tmp/.openad_models:Z
     deploy:
       resources:
         reservations:
