@@ -1,7 +1,6 @@
 services:
   openad_mammal_properties:
-    #image: quay.io/ibmdpdev/bmfm_mammal_properties:latest
-    image: testm:latest
+    image: quay.io/ibmdpdev/bmfm_mammal_properties:latest
     container_name: bmfm_mammal_properties
     hostname: bmfm_mammal_properties
     ports:
@@ -25,3 +24,4 @@ services:
       - gt4sd_s3_bucket_hub_algorithms=ad-prod-biomed
       - gt4sd_s3_bucket_hub_properties=ad-prod-biomed
       - ENABLE_CACHE_RESULTS=True
+      - ASYNC_ALLOW=True
