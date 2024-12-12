@@ -4,6 +4,16 @@ metadata:
   name: {{ include "bmfm-mammal-inference-chart.fullname" . }}
   labels:
     {{- include "bmfm-mammal-inference-chart.labels" . | nindent 4 }}
+    app.kubernetes.io/component: application
+    app.openshift.io/runtime: python
+    app.openshift.io/build-config: {{ .Values.buildConfig.name }}
+  annotations:
+    app.openshift.io/connects-to: {{ .Values.buildConfig.name }}
+    app.openshift.io/vcs-uri: {{ .Values.buildConfig.gitUri }}
+    app.openshift.io/vcs-ref: {{ .Values.buildConfig.gitRef }}
+    app.openshift.io/builds: '{"kind":"BuildConfig","namespace":"{{ .Release.Namespace }}","name":"{{ .Values.buildConfig.name }}"}'
+    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"{{ .Values.image.repository }}:{{ .Values.image.tag }}","namespace":"{{ .Release.Namespace }}"},"fieldPath":"spec.template.spec.containers[?(@.name==\"{{ .Chart.Name }}\")].image","pause":"false"}]'
+    app.openshift.io/build-source: '{"type":"git","git":{"uri":"{{ .Values.buildConfig.gitUri }}","ref":"{{ .Values.buildConfig.gitRef }}"}}'
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -19,6 +29,9 @@ spec:
       {{- end }}
       labels:
         {{- include "bmfm-mammal-inference-chart.labels" . | nindent 8 }}
+        app.kubernetes.io/component: application
+        app.openshift.io/runtime: python
+        app.openshift.io/build-config: {{ .Values.buildConfig.name }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -34,9 +47,6 @@ spec:
             {{- range .Values.aws.args }}
             - {{ . | quote }}
             {{- end }}
-          # envFrom:
-          # - secretRef:
-          #     name: {{ .Values.aws.credentials | quote }}
           env:
             - name: AWS_DEFAULT_REGION
               value: {{ .Values.aws.region | quote }}
@@ -49,7 +59,6 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          # image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           env:
             - name: HF_HOME
               value: {{ .Values.env.HF_HOME | quote }}

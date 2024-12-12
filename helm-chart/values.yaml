@@ -8,6 +8,7 @@ buildConfig:
   name: mammal-build
   gitUri: "https://github.com/acceleratedscience/bmfm_mammal_inference.git"
   gitRef: "main"
+  strategy: Docker
 
 image:
   repository: bmfm-mammal-inference
@@ -42,10 +43,6 @@ podAnnotations: {}
 podLabels: {}
 
 podSecurityContext: {}
-
-securityContext:
-  runAsUser: "appuser"  # or some non-root UID
-  runAsNonRoot: true
 
 securityContext: {}
 

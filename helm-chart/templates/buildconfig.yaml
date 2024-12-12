@@ -2,15 +2,16 @@ apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   name: {{ .Values.buildConfig.name }}
+  labels:
+    {{- include "bmfm-mammal-inference-chart.labels" . | nindent 4 }}
+    part-of: {{ .Release.Name }}
 spec:
   source:
     git:
       uri: {{ .Values.buildConfig.gitUri }}
       ref: {{ .Values.buildConfig.gitRef }}
   strategy:
-    type: Docker
-    dockerStrategy:
-      dockerfilePath: Dockerfile
+    type: {{ .Values.buildConfig.strategy }}
   output:
     to:
       kind: ImageStreamTag
