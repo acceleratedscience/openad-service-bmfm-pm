@@ -27,20 +27,26 @@ from pydantic.v1 import Field, BaseModel
 
 
 class MammalProteinSolubility(SimplePredictor):
-    """MAMMAL Protein Solubility Predictor
+    """MAMMAL Protein Water Solubility Predictor
 
-    Classifies proteins into binary labels (based only on the protein sequence)
+    Classifies proteins with binary labels (0/1), as well as -1 for uncertain.
+    
+    The only input is a protein sequence as FASTA string, required.
 
-    The benchmark defined in paper: https://academic.oup.com/bioinformatics/article/34/15/2605/4938490 Data retrieved from: https://zenodo.org/records/1162886.
+    The benchmark is defined here: https://academic.oup.com/bioinformatics/article/34/15/2605/4938490
+    
+    Data was retrieved here: https://zenodo.org/records/1162886
 
-    Predicts Protein Solubility returning a binary prediction 0 = Non-Soluble 1 = Soluble -1 = Unsure.
+    Given a protein FASTA string, returns a prediction of its water solubility: 
+      * 0 insoluble
+      * 1 soluble
+      * -1 uncertain
 
     Example:
 
-    <cmd> GET PROTEIN Property sol FOR \'NLMKRCTRGFRKLGKCTTLEEEKCKTLYPRGQCTCSDSKMNTHSCDCKSC\'</cmd>
+      <cmd> GET PROTEIN Property sol FOR \'NLMKRCTRGFRKLGKCTTLEEEKCKTLYPRGQCTCSDSKMNTHSCDCKSC\'</cmd>
 
-    result: 1
-
+      result: 1
     """
 
     domain: DomainSubmodule = DomainSubmodule("molecules")
