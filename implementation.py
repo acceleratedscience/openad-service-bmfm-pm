@@ -3,11 +3,10 @@ Wrapped dti and sol protein models from biomed multi-alignment, updates
 to use open-source versions of biomed model code, as well as publicly
 readable s3 bucket, s3://ad-prod-biomed
 
-This is intented to be containerized.
+This is intended to be containerized.
 
 Run in local environment:
   $ . env.sh && python implementation.py
-
 """
 
 import os
