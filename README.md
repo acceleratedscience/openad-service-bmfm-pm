@@ -12,7 +12,7 @@
 ## About
 
 <!-- description -->
-This OpenAD service provides access to the **Biomedmultialignment** foundation model with checkpoints for the following two properties:
+This OpenAD service provides access to the **Biomedmultialignment** foundation model with checkpoints for the following properties:
 
 | Sol | DTI |
 | --- | --- |
