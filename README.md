@@ -20,10 +20,10 @@ https://openad.accelerate.science/docs/model-service/available-services
 ## About
 
 <!-- description -->
-This OpenAD service provides access to the **Biomedmultialignment** foundation model with checkpoints for the following properties:
+This OpenAD service provides access to the **Biomed-multi-alignment** foundation model, with checkpoints for two protein properties that work on FASTA string input: **protein solubility** (Sol) and **drug-target interaction** (DTI).
 
-| Sol | DTI |
-| --- | --- |
+- **Sol** task is from benchmark data defined here: https://academic.oup.com/bioinformatics/article/34/15/2605/4938490
+- **DTI** task is from benchmark data from TD Commons: https://tdcommons.ai/multi_pred_tasks/dti/
 
 More information:  
 [github.com/BiomedSciAI/biomed-multi-alignment](https://github.com/BiomedSciAI/biomed-multi-alignment)
