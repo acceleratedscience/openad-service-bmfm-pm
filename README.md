@@ -1,4 +1,4 @@
-# BMFM-PM &nbsp;/&nbsp; Inference for Proteins using MAMMAL
+# BMFM-PM &nbsp;/&nbsp; Property Prediction on Protein (FASTA) Input using MAMMAL Algorithm
 
 <!--
 The description & support tags are consumed by the generate_docs() script
@@ -21,7 +21,7 @@ https://openad.accelerate.science/docs/model-service/available-services
 ## About
 
 <!-- description -->
-This OpenAD service provides access to the **Biomed-multi-alignment** foundation model, with checkpoints for two protein properties that work on FASTA string input: **protein solubility** (Sol) and **drug-target interaction** (DTI).
+This OpenAD service provides access to the **Biomed-multi-alignment** foundation model, with two models for protein property prediction that take FASTA string input: **protein solubility** (Sol) and **drug-target interaction** (DTI), which takes SMILES for the drug input and FASTA for the target input.
 
 - **Sol** task is from benchmark data defined here: https://academic.oup.com/bioinformatics/article/34/15/2605/4938490
 - **DTI** task is from benchmark data from TD Commons: https://tdcommons.ai/multi_pred_tasks/dti/
