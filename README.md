@@ -1,4 +1,4 @@
-# BMFM-PM &nbsp;/&nbsp; Property Prediction on Protein (FASTA) Input using MAMMAL Algorithm
+# BMFM-PM &nbsp;/&nbsp; Property Prediction on FASTA Input using MAMMAL
 
 <!--
 The description & support tags are consumed by the generate_docs() script
