@@ -1,5 +1,6 @@
 # BMFM-PM &nbsp;/&nbsp; Property Prediction on FASTA Input using MAMMAL
 
+<!-- maintainers: Dean Elzinga -->
 <!--
 The description & support tags are consumed by the generate_docs() script
 in the openad-website repo, to generate the 'Available Services' page:
